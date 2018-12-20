@@ -490,6 +490,7 @@ export default class JoyrideTooltip extends React.Component {
           style={styles.arrow} />
         <button
           className={`joyride-tooltip__close${(output.header ? ' joyride-tooltip__close--header' : '')}`}
+          aria-label="Close"
           style={styles.buttons.close}
           data-type="close"
           onClick={onClick} />
