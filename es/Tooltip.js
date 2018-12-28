@@ -20,6 +20,14 @@ var JoyrideTooltip = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (JoyrideTooltip.__proto__ || Object.getPrototypeOf(JoyrideTooltip)).call(this, props));
 
+    _this.focus = function () {
+      return _this.container.focus();
+    };
+
+    _this.storeContainerNode = function (node) {
+      _this.container = node;
+    };
+
     _this.handleMouseMove = function (e) {
       var event = e || window.e;
       var hole = _this.state.styles.hole;
@@ -59,7 +67,7 @@ var JoyrideTooltip = function (_React$Component) {
           showOverlay = _props.showOverlay;
 
 
-      this.forceUpdate();
+      this.forceUpdate(this.focus);
       onRender();
 
       if (showOverlay && allowClicksThruHole) {
@@ -124,7 +132,7 @@ var JoyrideTooltip = function (_React$Component) {
 
 
       if (prevProps.selector !== selector) {
-        this.forceUpdate();
+        this.forceUpdate(this.focus);
         onRender();
       }
     }
@@ -389,7 +397,8 @@ var JoyrideTooltip = function (_React$Component) {
           showOverlay = _props4.showOverlay,
           step = _props4.step,
           target = _props4.target,
-          type = _props4.type;
+          type = _props4.type,
+          locale = _props4.locale;
 
 
       if (!target) {
@@ -454,13 +463,20 @@ var JoyrideTooltip = function (_React$Component) {
 
       output.tooltipComponent = React.createElement(
         'div',
-        { className: opts.classes.join(' '), style: styles.tooltip, 'data-target': selector },
+        {
+          ref: this.storeContainerNode,
+          tabIndex: -1,
+          role: 'region',
+          'aria-live': 'polite',
+          className: opts.classes.join(' '),
+          style: styles.tooltip,
+          'data-target': selector },
         React.createElement('div', {
           className: 'joyride-tooltip__triangle joyride-tooltip__triangle-' + opts.positionClass,
           style: styles.arrow }),
         React.createElement('button', {
           className: 'joyride-tooltip__close' + (output.header ? ' joyride-tooltip__close--header' : ''),
-          'aria-label': 'Close',
+          'aria-label': locale.close,
           style: styles.buttons.close,
           'data-type': 'close',
           onClick: onClick }),
@@ -520,6 +536,7 @@ JoyrideTooltip.propTypes = {
   buttons: PropTypes.object.isRequired,
   disableOverlay: PropTypes.bool,
   holePadding: PropTypes.number,
+  locale: PropTypes.object.isRequired,
   offsetParentSelector: PropTypes.string, //eslint-disable-line react/no-unused-prop-types
   onClick: PropTypes.func.isRequired,
   onRender: PropTypes.func.isRequired,

@@ -34,7 +34,8 @@ var JoyrideBeacon = function (_React$Component) {
           onTrigger = _props.onTrigger,
           step = _props.step,
           xPos = _props.xPos,
-          yPos = _props.yPos;
+          yPos = _props.yPos,
+          locale = _props.locale;
 
       var styles = {
         beacon: {
@@ -78,7 +79,7 @@ var JoyrideBeacon = function (_React$Component) {
         'button',
         {
           className: 'joyride-beacon',
-          'aria-label': 'Joyride (walkthrough) Beacon',
+          'aria-label': locale.open,
           style: styles.beacon,
           onClick: eventType === 'click' || isTouch ? onTrigger : null,
           onMouseEnter: eventType === 'hover' && !isTouch ? onTrigger : null },
@@ -93,6 +94,7 @@ var JoyrideBeacon = function (_React$Component) {
 
 JoyrideBeacon.propTypes = {
   eventType: PropTypes.string.isRequired,
+  locale: PropTypes.object.isRequired,
   onTrigger: PropTypes.func.isRequired,
   step: PropTypes.object.isRequired,
   xPos: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,

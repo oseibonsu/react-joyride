@@ -1330,7 +1330,8 @@ var Joyride = function (_React$Component) {
           xPos: xPos,
           yPos: yPos,
           onClick: this.handleClickTooltip,
-          onRender: this.handleRenderTooltip
+          onRender: this.handleRenderTooltip,
+          locale: locale
         });
       } else {
         component = React.createElement(Beacon, {
@@ -1338,7 +1339,8 @@ var Joyride = function (_React$Component) {
           xPos: xPos,
           yPos: yPos,
           onTrigger: this.handleClickBeacon,
-          eventType: step.type || 'click'
+          eventType: step.type || 'click',
+          locale: locale
         });
       }
 
