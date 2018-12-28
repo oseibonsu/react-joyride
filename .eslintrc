@@ -14,6 +14,7 @@
       1,
       "as-needed"
     ],
+    "linebreak-style": 0,
     "arrow-parens": 0,
     "block-spacing": 1,
     "brace-style": [1, "stroustrup", { "allowSingleLine": true }],

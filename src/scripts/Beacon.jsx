@@ -12,6 +12,7 @@ if (typeof window !== 'undefined') {
 export default class JoyrideBeacon extends React.Component {
   static propTypes = {
     eventType: PropTypes.string.isRequired,
+    locale: PropTypes.object.isRequired,
     onTrigger: PropTypes.func.isRequired,
     step: PropTypes.object.isRequired,
     xPos: PropTypes.oneOfType([
@@ -30,7 +31,7 @@ export default class JoyrideBeacon extends React.Component {
   };
 
   render() {
-    const { eventType, onTrigger, step, xPos, yPos } = this.props;
+    const { eventType, onTrigger, step, xPos, yPos, locale } = this.props;
     const styles = {
       beacon: {
         left: xPos,
@@ -73,7 +74,7 @@ export default class JoyrideBeacon extends React.Component {
     return (
       <button
         className="joyride-beacon"
-        aria-label="Joyride (walkthrough) Beacon"
+        aria-label={locale.open}
         style={styles.beacon}
         onClick={eventType === 'click' || isTouch ? onTrigger : null}
         onMouseEnter={eventType === 'hover' && !isTouch ? onTrigger : null}>

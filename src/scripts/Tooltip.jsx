@@ -15,6 +15,7 @@ export default class JoyrideTooltip extends React.Component {
     buttons: PropTypes.object.isRequired,
     disableOverlay: PropTypes.bool,
     holePadding: PropTypes.number,
+    locale: PropTypes.object.isRequired,
     offsetParentSelector: PropTypes.string, //eslint-disable-line react/no-unused-prop-types
     onClick: PropTypes.func.isRequired,
     onRender: PropTypes.func.isRequired,
@@ -60,7 +61,7 @@ export default class JoyrideTooltip extends React.Component {
   componentDidMount() {
     const { allowClicksThruHole, onRender, showOverlay } = this.props;
 
-    this.forceUpdate();
+    this.forceUpdate(this.focus);
     onRender();
 
     if (showOverlay && allowClicksThruHole) {
@@ -132,13 +133,19 @@ export default class JoyrideTooltip extends React.Component {
     const { onRender, selector } = this.props;
 
     if (prevProps.selector !== selector) {
-      this.forceUpdate();
+      this.forceUpdate(this.focus);
       onRender();
     }
   }
 
   componentWillUnmount() {
     document.removeEventListener('mousemove', this.handleMouseMove, false);
+  }
+
+  focus = () => this.container.focus()
+
+  storeContainerNode = (node) => {
+    this.container = node;
   }
 
   getArrowPosition(position) {
@@ -425,7 +432,8 @@ export default class JoyrideTooltip extends React.Component {
       showOverlay,
       step,
       target,
-      type
+      type,
+      locale
     } = this.props;
 
     if (!target) {
@@ -484,13 +492,20 @@ export default class JoyrideTooltip extends React.Component {
     }
 
     output.tooltipComponent = (
-      <div className={opts.classes.join(' ')} style={styles.tooltip} data-target={selector}>
+      <div
+        ref={this.storeContainerNode}
+        tabIndex={-1}
+        role="region"
+        aria-live="polite"
+        className={opts.classes.join(' ')}
+        style={styles.tooltip}
+        data-target={selector}>
         <div
           className={`joyride-tooltip__triangle joyride-tooltip__triangle-${opts.positionClass}`}
           style={styles.arrow} />
         <button
           className={`joyride-tooltip__close${(output.header ? ' joyride-tooltip__close--header' : '')}`}
-          aria-label="Close"
+          aria-label={locale.close}
           style={styles.buttons.close}
           data-type="close"
           onClick={onClick} />

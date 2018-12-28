@@ -1231,7 +1231,8 @@ class Joyride extends React.Component {
         xPos,
         yPos,
         onClick: this.handleClickTooltip,
-        onRender: this.handleRenderTooltip
+        onRender: this.handleRenderTooltip,
+        locale
       });
     }
     else {
@@ -1240,7 +1241,8 @@ class Joyride extends React.Component {
         xPos,
         yPos,
         onTrigger: this.handleClickBeacon,
-        eventType: step.type || 'click'
+        eventType: step.type || 'click',
+        locale
       });
     }
 
