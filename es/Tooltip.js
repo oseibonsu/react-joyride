@@ -414,7 +414,7 @@ var JoyrideTooltip = function (_React$Component) {
       if (step.title) {
         output.header = React.createElement(
           'div',
-          { className: 'joyride-tooltip__header', style: styles.header },
+          { className: 'joyride-tooltip__header', style: styles.header, 'aria-hidden': true },
           step.title
         );
       }
@@ -468,6 +468,7 @@ var JoyrideTooltip = function (_React$Component) {
           tabIndex: -1,
           role: 'region',
           'aria-live': 'polite',
+          'aria-label': step.title,
           className: opts.classes.join(' '),
           style: styles.tooltip,
           'data-target': selector },
