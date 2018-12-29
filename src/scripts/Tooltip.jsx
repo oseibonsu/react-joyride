@@ -445,7 +445,7 @@ export default class JoyrideTooltip extends React.Component {
 
     if (step.title) {
       output.header = (
-        <div className="joyride-tooltip__header" style={styles.header}>
+        <div className="joyride-tooltip__header" style={styles.header} aria-hidden>
           {step.title}
         </div>
       );
@@ -497,6 +497,7 @@ export default class JoyrideTooltip extends React.Component {
         tabIndex={-1}
         role="region"
         aria-live="polite"
+        aria-label={step.title}
         className={opts.classes.join(' ')}
         style={styles.tooltip}
         data-target={selector}>
